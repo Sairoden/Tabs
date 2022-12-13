@@ -11,7 +11,7 @@ function App() {
   const fetchJobs = async () => {
     const res = await fetch(url);
     const data = await res.json();
-  
+
     setJobs(data);
     setLoading(false);
   };
@@ -27,7 +27,37 @@ function App() {
           <h1>Loading...</h1>
         </section>
       ) : (
-        <h2>Jobs</h2>
+        <section className="section">
+          <div className="title">
+            <h2>experience</h2>
+            <div className="underline" />
+          </div>
+          <div className="jobs-center">
+            <div className="btn-container">
+              {jobs.map((item, index) => (
+                <button
+                  className={`job-btn ${index === value && "active-btn"}`}
+                  key={item.id}
+                  onClick={() => setValue(index)}
+                >
+                  {item.company}
+                </button>
+              ))}
+            </div>
+            {/* job info */}
+            <article className="job-info">
+              <h3>{jobs[value].title} </h3>
+              <h4>{jobs[value].company}</h4>
+              <p className="job-date">{jobs[value].dates}</p>
+              {jobs[value].duties.map((duty, index) => (
+                <div className="job-desc" key={index}>
+                  <FaAngleDoubleRight className="job-icon" />
+                  <p>{duty}</p>
+                </div>
+              ))}
+            </article>
+          </div>
+        </section>
       )}
     </>
   );
